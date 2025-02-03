@@ -19,15 +19,17 @@ public class Produto {
 	private String nome;
 	private double preco;
 	private String descricao;
+	private String imgURL;
 	
 	public Produto() {
 		
 	}
 	
 	public Produto(ProdutoDTO dto) {
-		this.nome = dto.nome;
-		this.preco = dto.preco;
-		this.descricao = dto.descricao;
+		this.nome = dto.nome();
+		this.preco = dto.preco();
+		this.descricao = dto.descricao();
+		this.descricao = dto.imgURL();
 	}
 	
 	public Produto(Long id, String nome, double preco, String descricao) {
@@ -35,6 +37,7 @@ public class Produto {
 	this.nome = nome;
 	this.preco = preco;
 	this.descricao = descricao;
+	this.imgURL = imgURL;
 }
 
 	public Long getId() {
@@ -67,6 +70,14 @@ public class Produto {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public String getimgURL() {
+		return imgURL;
+	}
+	
+	public void setimgURL(String imgURL) {
+		this.imgURL = imgURL;
 	}
 
 
