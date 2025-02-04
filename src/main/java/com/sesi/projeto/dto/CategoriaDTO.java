@@ -1,5 +1,5 @@
 package com.sesi.projeto.dto;
 
-public record CategoriaDTO(String nome) {
+public record CategoriaDTO(Long id, String nome) {
 
 }

@@ -2,39 +2,66 @@ package com.sesi.projeto.entities;
 
 import com.sesi.projeto.dto.ItemDoPedidoDTO;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.EmbeddedId;
 
-@Entity
-@Table(name= "tb_itemdopedido")
 public class ItemDoPedido {
 	
 	
-		
-
-		private String nome;
-		private double preco;
-		private String descricao;
-		private String imgURL;
-		
-		public Produto() {
+	@EmbeddedId
+	
+	private ItemDoPedidoPK id = new ItemDoPedidoPK();
+	
+	private Integer quantidade;
+	private Double preco;
+	
+		public ItemDoPedido() {
 			
 		}
 		
-		public ItemPedido(ItemDoPedidoDTO dto) {
-			this.nome = dto.nome();
-			this.preco = dto.preco();
-			this.descricao = dto.descricao();
-			this.descricao = dto.imgURL();
+		public ItemDoPedido(Pedido pedido, Produto produto, Integer quantidade, Double preco) {
+			id.setPedido(pedido);
+			id.setProduto(produto);
+			this.quantidade = quantidade;
+			this.preco = preco;
 		}
 		
-		public Produto(Long id, String nome, double preco, String descricao) {
-		this.id = id;
-		this.nome = nome;
-		this.preco = preco;
-		this.descricao = descricao;
-		this.imgURL = imgURL;
-	}
+		public Pedido getPedido() {
+			return id.getPedido();
+		}
+		
+		public void Pedido(Pedido pedido) {
+			id.set  Pedido(pedido);
+		}
+		
+		public void ItemDoPedido(Integer quantidade, Double preco) {
+			this.quantidade = quantidade;
+			this.preco = preco;
+		}
+		
+		public void ItemPedido(ItemDoPedidoDTO dto) {
+			this.quantidade = dto.quantidade();
+			this.preco = dto.preco();
+		}
+
+		public Integer getQuantidade() {
+			return quantidade;
+		}
+
+		public void setQuantidade(Integer quantidade) {
+			this.quantidade = quantidade;
+		}
+
+		public Double getPreco() {
+			return preco;
+		}
+
+		public void setPreco(Double preco) {
+			this.preco = preco;
+		}
+		
+		
+		
+	
 
 
 }

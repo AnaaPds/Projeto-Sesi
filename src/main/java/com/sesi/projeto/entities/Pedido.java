@@ -1,18 +1,35 @@
 package com.sesi.projeto.entities;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import com.sesi.projeto.dto.ProdutoDTO;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "tb_produto")
+@Table(name= "tb_pedido")
 public class Pedido {
+	
+	@OneToMany(mappedBy = "id.pedido")
+	
+	private Set< ItemDoPedido> items = new HashSet<>();
+	public Set<ItemDoPedido>getItems(){
+		return items;
+	}
+	
+	public List<Produto>getProduto(){
+		return items.stream().map(x -> x.getProduto()).toList();
+	}
 		
 
 		@Id
@@ -21,31 +38,22 @@ public class Pedido {
 		private Instant momento;
 		private StatusDoPedido status;
 		
+		@ManyToOne
+		@JoinColumn(name = "cliente_id")
+		private Usuario cliente;
+		
+		@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL )
+		private Pagamento pagamento;
+		
 		public Pedido() {
 			
 		}
 		
-		public Pedido(PedidoDTO e) {
-			this.momento = e.momento();
-			this.status = e.status();
-		}
 		
-		public Pedido(PedidoDTO p) {
-			this.id = id;
-			this.nome = nome;
-			this.email = email;
-			this.telefone = telefone;
-			this.senha = senha;
-			this.papeis = papeis;
-			
-		}
-		
-		public void Pedido(Long id, instant momento, double preco, String descricao) {
+		public void Pedido(Long id, Instant momento, StatusDoPedido status) {
 		this.id = id;
-		this.nome = nome;
-		this.preco = preco;
-		this.descricao = descricao;
-		this.imgURL = imgURL;
+		this.momento = momento;
+		this.status = status;
 	}
 
 		public Long getId() {
@@ -56,36 +64,22 @@ public class Pedido {
 			this.id = id;
 		}
 
-		public String getNome() {
-			return nome;
+		public Instant getMomento() {
+			return momento;
 		}
 
-		public void setNome(String nome) {
-			this.nome = nome;
+		public void setNome(Instant momento) {
+			this.momento = momento;
 		}
 
-		public double getPreco() {
-			return preco;
+		public StatusDoPedido getStatus() {
+			return status;
 		}
 
-		public void setPreco(double preco) {
-			this.preco = preco;
-		}
-
-		public String getDescricao() {
-			return descricao;
-		}
-
-		public void setDescricao(String descricao) {
-			this.descricao = descricao;
+		public void setStatus(StatusDoPedido status) {
+			this.status = status;
 		}
 		
-		public String getimgURL() {
-			return imgURL;
-		}
 		
-		public void setimgURL(String imgURL) {
-			this.imgURL = imgURL;
-		}
 	
 }

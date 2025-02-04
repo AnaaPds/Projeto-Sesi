@@ -1,5 +1,9 @@
 package com.sesi.projeto.dto;
 
-public record PedidoDTO(Long id, instant momento, StatusDoPedido status) {
+import java.time.Instant;
+
+import com.sesi.projeto.entities.StatusDoPedido;
+
+public record PedidoDTO(Long id, Instant momento, StatusDoPedido status) {
 
 }
